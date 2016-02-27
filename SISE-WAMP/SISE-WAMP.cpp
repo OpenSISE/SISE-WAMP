@@ -190,18 +190,18 @@ BOOL ExecDosCmd(char * command)
 
 BOOL StartMysql(CString WorkPath)
 {
-	//WorkPath += "\\";
-	//WorkPath += ApacheVersion;
-	ExecDosCmd((WorkPath + "\\bin\\httpd.exe -k install").GetBuffer(WorkPath.GetLength()));
-	Sleep(500);
-	ExecDosCmd((WorkPath + "\\bin\\httpd.exe -k start").GetBuffer(WorkPath.GetLength()));
+	ExecDosCmd((WorkPath + "\\bin\\mysqld-nt --install ").GetBuffer(WorkPath.GetLength()));
+	Sleep(100);
+	ExecDosCmd("net start mysql");
 	return TRUE;
 }
 
 BOOL StartHttpd(CString WorkPath)
 {
-	ExecDosCmd((WorkPath + "\\bin\\mysqld-nt.exe ").GetBuffer(WorkPath.GetLength()));
-
+	
+	ExecDosCmd((WorkPath + "\\bin\\httpd.exe -k install").GetBuffer(WorkPath.GetLength()));
+	Sleep(500);
+	ExecDosCmd((WorkPath + "\\bin\\httpd.exe -k start").GetBuffer(WorkPath.GetLength()));
 	return TRUE;
 }
 

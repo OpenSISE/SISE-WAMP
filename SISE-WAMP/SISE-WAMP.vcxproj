@@ -125,10 +125,8 @@
     <None Include="res\SISEWAMP.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\Administrator\Desktop\SISE.bmp" />
     <Image Include="res\logo.ico" />
     <Image Include="res\SISE-WAMP .ico" />
-    <Image Include="res\SISEWAMP.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SISE-WAMP.rc" />

@@ -288,8 +288,8 @@ void CSISEWAMPDlg::OnBnClickedButton_START()
 	CString WorkPath;
 	WorkPath = EnvPath;
 	WorkPath.Replace("\\", "\\\\");
-	StartMysql(WorkPath + "\\" + ApacheVersion);
-	StartHttpd(WorkPath + "\\" + MysqlVersion);
+	StartMysql(WorkPath + "\\" + MysqlVersion);
+	StartHttpd(WorkPath + "\\" + ApacheVersion);
 	int CheckTimes=0;
 	BOOL MysqlStarted = FALSE, ApacheStarted = FALSE;
 
@@ -370,8 +370,7 @@ void CSISEWAMPDlg::OnBnClickedButton_Stop()
 	Command += ApacheVersion;
 	ExecDosCmd((Command + "\\bin\\httpd.exe -k stop").GetBuffer(Command.GetLength()));
 	ExecDosCmd((Command + "\\bin\\httpd.exe -k uninstall").GetBuffer(Command.GetLength()));
-	ExecDosCmd("taskkill /f /im mysqld-nt.exe");
-	ExecDosCmd("taskkill /f /im httpd.exe");
+	ExecDosCmd("net stop mysql");
 	
 	ShowMsg("Apache已关闭....");
 	ShowMsg("Mysql已关闭....");
@@ -460,7 +459,9 @@ void CSISEWAMPDlg::SetApache()
 	delete My;
 	WorkPath += "tools\\vi.exe ";
 	WorkPath += EnvPath;
-	WorkPath += "\\Apache24\\conf\\httpd.conf";
+	WorkPath += "\\";
+	WorkPath += ApacheVersion;
+	WorkPath += "\\conf\\httpd.conf";
 	this->StartEXE(WorkPath);
 
 }
@@ -538,7 +539,7 @@ void CSISEWAMPDlg::OnBnClickedButtonLOCAL()
 void CSISEWAMPDlg::OnBnClickedButtonCode()
 {
 	// TODO:  在此添加控件通知处理程序代码
-	OpenUrl("https://github.com/OpenSISE");
+	OpenUrl("https://github.com/OpenSISE/SISE-WAMP-tools");
 }
 
 void CSISEWAMPDlg::OpenUsage()
@@ -574,14 +575,14 @@ void CSISEWAMPDlg::CreateUsage()
 	{
 		file.Open(WorkPath, CFile::modeCreate | CFile::modeWrite);
 		CString Content;
-		Content = "使用方法:解压所有文件到D盘根目录，保证路径为D:/SISE-WAMP1.0 \r\n\
+		Content = "使用方法:解压所有文件到D盘根目录，保证路径为D:/SISE-WAMP1.1 \r\n\
 然后运行SISE-WAMP.exe，再点一键启动，有安装杀毒软件的会提示安装服务，允许即可，若点错拒绝了的，可一键关闭后再一键启动！\r\n\
 一切仅供学习使用，请勿用于非法用途。有BUG可反映给作者:Bison \r\n\
 1.当前默认一键环境为Apache2.4+php5.6+Mysql5.1\r\n\
 2.当前网站目录为D:/SISE-WAMP1.0/www \r\n\
 3.mysql数据库默认root帐号密码为123456 \r\n\
 欢迎大家反映BUG！！！\r\n\
-代码在  https://github.com/OpenSISE  ";
+代码在  https://github.com/OpenSISE/SISE-WAMP-tools  ";
 		file.Write(Content.GetBuffer(), Content.GetLength());
 		file.Close();
 	}
